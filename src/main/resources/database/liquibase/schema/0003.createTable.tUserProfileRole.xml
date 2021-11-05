@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="bharat.chauhan" id="0003.createTable.tUserProfileRole">
+        <createTable tableName="tUserProfileRole">
+            <column autoIncrement="true" name="UserProfileRoleId" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="UserProfileId" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UserRoleId" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint  baseColumnNames="UserProfileId"
+                                  baseTableName="tUserProfileRole"
+                                  constraintName="fk_tUserProfileRole_UserProfileId"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
+                                  referencedColumnNames="UserProfileId"
+                                  referencedTableName="tUserProfile"/>
+        <addForeignKeyConstraint  baseColumnNames="UserRoleId"
+                                  baseTableName="tUserProfileRole"
+                                  constraintName="fk_tUserProfileRole_UserRoleId"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
+                                  referencedColumnNames="UserRoleId"
+                                  referencedTableName="tUserRole"/>
+        <rollback>
+            <dropTable tableName="tUserProfileRole"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
